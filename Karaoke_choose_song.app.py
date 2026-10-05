@@ -211,7 +211,7 @@ with st.expander("🔐 Host / Admin Singer Queue"):
             st.error("Incorrect password.")
 
     if st.session_state.get("admin_logged_in", False):
-        st.success("Access Granted, Host!")
+        st.success("Access Granted, Nexus!")
         st.subheader("📋 Upcoming Singers Queue")
 
         if len(requests_queue) > 0:
