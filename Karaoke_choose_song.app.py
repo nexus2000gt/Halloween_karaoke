@@ -8,10 +8,10 @@ st.set_page_config(
     layout="centered"
 )
 
-# 2. Enhanced Spooky Halloween CSS & Animated Styling
+# 2. Custom CSS for Spooky Theme
 st.markdown("""
     <style>
-    /* Spooky Dark Gradient + Animated Overlay */
+    /* Dark Spooky Background */
     .stApp {
         background: linear-gradient(rgba(10, 5, 20, 0.88), rgba(35, 10, 50, 0.88)), 
                     url("https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=1200&auto=format&fit=crop");
@@ -21,7 +21,7 @@ st.markdown("""
         color: #f1f1f1;
     }
 
-    /* Vibrant Glowing Headings */
+    /* Headings */
     h1 {
         color: #ff5500 !important;
         text-shadow: 0 0 10px #ff0000, 0 0 20px #ff5500, 2px 2px 5px #000;
@@ -40,7 +40,7 @@ st.markdown("""
         font-weight: bold;
     }
 
-    /* Cards Container Styling */
+    /* Container Styling */
     .stForm, div[data-testid="stExpander"] {
         background-color: rgba(20, 10, 30, 0.85) !important;
         border-radius: 20px !important;
@@ -49,29 +49,37 @@ st.markdown("""
         box-shadow: 0 0 25px rgba(138, 43, 226, 0.6), inset 0 0 15px rgba(255, 85, 0, 0.2);
     }
 
-    /* Spooky Pulsing Button */
+    /* Buttons */
     .stButton > button {
         background: linear-gradient(45deg, #ff5500, #8a2be2) !important;
         color: #ffffff !important;
         font-weight: bold !important;
-        font-size: 20px !important;
+        font-size: 18px !important;
         border-radius: 30px !important;
         border: 2px solid #ffaa00 !important;
-        padding: 12px 28px !important;
+        padding: 10px 24px !important;
         width: 100%;
         box-shadow: 0 0 15px #ff5500;
         transition: all 0.3s ease-in-out;
     }
     
     .stButton > button:hover {
-        transform: scale(1.04);
+        transform: scale(1.03);
         box-shadow: 0 0 25px #8a2be2, 0 0 10px #ff5500;
         color: #ffeb3b !important;
+    }
+
+    /* Large Glowing Emojis Banner */
+    .spooky-emoji-banner {
+        text-align: center;
+        font-size: 55px;
+        margin: 15px 0;
+        text-shadow: 0 0 15px #ff5500, 0 0 25px #8a2be2;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# 3. GLOBAL SHARED DATA STORAGE (Persists queue across all connected phones)
+# 3. GLOBAL SHARED DATA STORAGE
 @st.cache_resource
 def get_global_requests():
     return []
@@ -136,20 +144,14 @@ SONGS = [
     "Rufus Wainwright - Hallelujah (Shrek version)"
 ]
 
-# 5. Spooky Header Banner
+# 5. Header Banner
 st.markdown("<h1 style='font-size: 42px;'>🎃 Spooky Karaoke Night 🎤</h1>", unsafe_allow_html=True)
 
-# Graphic Icons Row
-st.markdown("""
-    <div style='text-align: center; margin-top: 10px; margin-bottom: 25px;'>
-        <img src="https://cdn-icons-png.flaticon.com/512/3815/3815316.png" width="65" style="margin: 0 12px;">
-        <img src="https://cdn-icons-png.flaticon.com/512/3815/3815321.png" width="65" style="margin: 0 12px;">
-        <img src="https://cdn-icons-png.flaticon.com/512/3815/3815332.png" width="65" style="margin: 0 12px;">
-    </div>
-""", unsafe_allow_html=True)
+# Pure Spooky Emoji Banner
+st.markdown("<div class='spooky-emoji-banner'>🦇 🎃 💀 🕷️ 🕯️ 🕸️ 🧛</div>", unsafe_allow_html=True)
 
 st.markdown(
-    "<p style='text-align: center; font-size: 19px; color: #ffaa00 !important; margin-bottom: 30px;'>"
+    "<p style='text-align: center; font-size: 19px; color: #ffaa00 !important; margin-bottom: 25px;'>"
     "🕷️ Summon your track, grab the mic, and wake the dead! 👻</p>",
     unsafe_allow_html=True
 )
@@ -181,7 +183,6 @@ if submitted:
     elif selected_song == "-- Select a song --":
         st.error("⚠️ Please pick a song from the list!")
     else:
-        # Save request globally
         requests_queue.append({
             "Name": name.strip(),
             "Song": selected_song,
@@ -192,13 +193,24 @@ if submitted:
             f"🎉 **Awesome pick, {name}!** You selected **{selected_song}** ({track_mode}). Get ready to hit the stage!"
         )
 
-# 7. Host Admin Panel (Password Protected)
+# 7. Host Admin Panel
 st.divider()
 with st.expander("🔐 Host / Admin Singer Queue"):
     st.write("Access the secret live queue:")
-    password = st.text_input("Enter Admin Password:", type="password")
+    
+    admin_form = st.form("admin_login_form")
+    password = admin_form.text_input("Enter Admin Password:", type="password")
+    admin_login = admin_form.form_submit_button("🔑 Enter Admin Panel")
 
-    if password == "Karaoke2026":
+    # Store login state so the admin view persists
+    if admin_login:
+        if password == "Karaoke2026":
+            st.session_state["admin_logged_in"] = True
+        else:
+            st.session_state["admin_logged_in"] = False
+            st.error("Incorrect password.")
+
+    if st.session_state.get("admin_logged_in", False):
         st.success("Access Granted, Host!")
         st.subheader("📋 Upcoming Singers Queue")
 
@@ -206,10 +218,9 @@ with st.expander("🔐 Host / Admin Singer Queue"):
             df = pd.DataFrame(requests_queue)
             st.dataframe(df, use_container_width=True)
 
-            if st.button("🗑️ Clear Queue"):
+            if st.button("🗑️ Reset / Clear Singer Queue"):
                 requests_queue.clear()
+                st.success("Singer queue has been cleared!")
                 st.rerun()
         else:
             st.info("No song requests submitted yet.")
-    elif password:
-        st.error("Incorrect password.")
