@@ -30,7 +30,7 @@ st.markdown("""
         margin-bottom: 0px !important;
     }
 
-    h3 {
+    h2, h3 {
         color: #bb86fc !important;
         text-shadow: 0 0 8px #8a2be2;
     }
@@ -41,9 +41,12 @@ st.markdown("""
     }
 
     /* Container Styling */
+    .stForm, div[data-testid="stExpander"], div[data-testid="stVerticalBlock"] > div.stElementContainer > div[data-testid="stMarkdownContainer"] {
+        border-radius: 20px !important;
+    }
+    
     .stForm, div[data-testid="stExpander"] {
         background-color: rgba(20, 10, 30, 0.85) !important;
-        border-radius: 20px !important;
         padding: 25px !important;
         border: 2px solid #8a2be2 !important;
         box-shadow: 0 0 25px rgba(138, 43, 226, 0.6), inset 0 0 15px rgba(255, 85, 0, 0.2);
@@ -193,34 +196,41 @@ if submitted:
             f"🎉 **Awesome pick, {name}!** You selected **{selected_song}** ({track_mode}). Get ready to hit the stage!"
         )
 
-# 7. Host Admin Panel
+# 7. Public Live Queue (Visible to all guests)
 st.divider()
-with st.expander("🔐 Host / Admin Singer Queue"):
-    st.write("Access the secret live queue:")
+st.subheader("📜 Live Singer Queue & Playlist")
+
+if len(requests_queue) > 0:
+    df_public = pd.DataFrame(requests_queue)
+    # Add 1-based index numbering for performance order
+    df_public.index = range(1, len(df_public) + 1)
+    st.dataframe(df_public, use_container_width=True)
+else:
+    st.info("👻 No song requests yet. Be the first to take the stage!")
+
+# 8. Host Admin Panel (For resetting/clearing queue)
+st.divider()
+with st.expander("🔐 Host / Admin Panel"):
+    st.write("Access the host controls:")
     
     admin_form = st.form("admin_login_form")
     password = admin_form.text_input("Enter Admin Password:", type="password")
     admin_login = admin_form.form_submit_button("🔑 Enter Admin Panel")
 
-    # Store login state so the admin view persists
     if admin_login:
         if password == "Karaoke2026":
-            st.session_state["admin_logged_in"] = True
+            st.session_state["karaoke_admin_logged_in"] = True
         else:
-            st.session_state["admin_logged_in"] = False
+            st.session_state["karaoke_admin_logged_in"] = False
             st.error("Incorrect password.")
 
-    if st.session_state.get("admin_logged_in", False):
-        st.success("Access Granted, Nexus!")
-        st.subheader("📋 Upcoming Singers Queue")
+    if st.session_state.get("karaoke_admin_logged_in", False):
+        st.success("Access Granted, Host!")
 
         if len(requests_queue) > 0:
-            df = pd.DataFrame(requests_queue)
-            st.dataframe(df, use_container_width=True)
-
             if st.button("🗑️ Reset / Clear Singer Queue"):
                 requests_queue.clear()
                 st.success("Singer queue has been cleared!")
                 st.rerun()
         else:
-            st.info("No song requests submitted yet.")
+            st.info("Queue is currently empty.")
