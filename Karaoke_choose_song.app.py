@@ -198,4 +198,18 @@ with st.expander("🔐 Host / Admin Singer Queue"):
     st.write("Access the secret live queue:")
     password = st.text_input("Enter Admin Password:", type="password")
 
-    if password == "Karaoke2
+    if password == "Karaoke2026":
+        st.success("Access Granted, Host!")
+        st.subheader("📋 Upcoming Singers Queue")
+
+        if len(requests_queue) > 0:
+            df = pd.DataFrame(requests_queue)
+            st.dataframe(df, use_container_width=True)
+
+            if st.button("🗑️ Clear Queue"):
+                requests_queue.clear()
+                st.rerun()
+        else:
+            st.info("No song requests submitted yet.")
+    elif password:
+        st.error("Incorrect password.")
