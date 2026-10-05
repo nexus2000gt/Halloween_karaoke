@@ -62,61 +62,60 @@ if "requests" not in st.session_state:
 
 # 4. List of available songs from image
 SONGS = [
-“ABBA - Dancing Queen“
-“Adele - Someone Like You“
-“Aerosmith - Crazy“
-“Aerosmith - I don't want to miss a thing“
-“Alejandro Sanz - Corazón partío“
-“Andrés Calamaro - Flaca“
-“Aqua - Barbie Girl“
-“Backstreet boys - I want it that way“
-“Black Eyed Peas - I Gotta Feeling“
-“Bon Jovi - It's my life“
-“Bon Jovi - Livin' on a Prayer“
-“Bruno Mars - The Lazy Song“
-“Camilo Sesto - Vivir así es morir de amor“
-“Eminem feat Rihanna - Love The Way You Lie“
-“Enanitos verdes - Lamento boliviano“
-“Evanescence - Bring Me to Life“
-“Evanescence - My Inmortal“
-“Green Day - Boulevard of Broken Dreams“
-“Guns N' Roses - Sweet Child O'Mine“
-“James Blunt - You're Beautiful“
-“Jason Mraz - I'm yours“
-“José José - El triste“
-“Katy Perry - Hot N Cold“
-“Lady GaGa - Alejandro“
-“Lady GaGa - Bad Romance“
-“Lady Gaga - Poker Face“
-“Lagy gaga & Bruno Mars - Die with a smile“
-“Linkin Park - In The End“
-“Linkin Park - Numb“
-“Marc Anthony - Ahora quien (salsa)“
-“Maroon 5 - She Will Be Loved“
-“Mena Massoud, Naomi Scott - A Whole New World“
-“Michael Jackson - Smooth Criminal“
-“Michel Teló - Ai Se Eu Te Pego“
-“Nirvana - Smells Like Teen Spirit“
-“O-Zone - Dragostea din teï“
-“Queen - Bohemian Rhapsody“
-“Queen - Don't Stop Me Now“
-“Queen - I Want to Break Free“
-“Queen - We Are the Champions“
-“Queen - We Will Rock You“
-“Radiohead - Creep“
-“Slipknot - Snuff“
-“Slawomir - Milosc w Zakopanem“
-“The Beatles - Yesterday“
-“The Cranberries - Zombie“
-“Vlad Topalov - Kak zhe tak mozhet byt“
-“Amy Winehouse feat. Mark Ronson - Valerie“
-“Chutci - Samaya“
-“Frank Sinatra - My Way“
-“Gayle - Abcdefu“
-“John Legend - All of Me“
-“Natasha Bedingfield - Unwritten“
-“Rufus Wainwright - Hallelujah (Shrek version)“
-
+“ABBA - Dancing Queen"
+“Adele - Someone Like You"
+“Aerosmith - Crazy"
+“Aerosmith - I don't want to miss a thing"
+“Alejandro Sanz - Corazón partío"
+“Andrés Calamaro - Flaca"
+“Aqua - Barbie Girl"
+“Backstreet boys - I want it that way"
+“Black Eyed Peas - I Gotta Feeling"
+“Bon Jovi - It's my life"
+“Bon Jovi - Livin' on a Prayer"
+“Bruno Mars - The Lazy Song"
+“Camilo Sesto - Vivir así es morir de amor"
+“Eminem feat Rihanna - Love The Way You Lie"
+“Enanitos verdes - Lamento boliviano"
+“Evanescence - Bring Me to Life"
+“Evanescence - My Inmortal"
+“Green Day - Boulevard of Broken Dreams"
+“Guns N' Roses - Sweet Child O'Mine"
+“James Blunt - You're Beautiful"
+“Jason Mraz - I'm yours"
+“José José - El triste"
+“Katy Perry - Hot N Cold"
+“Lady GaGa - Alejandro"
+“Lady GaGa - Bad Romance"
+“Lady Gaga - Poker Face"
+“Lagy gaga & Bruno Mars - Die with a smile"
+“Linkin Park - In The End"
+“Linkin Park - Numb"
+“Marc Anthony - Ahora quien (salsa)"
+“Maroon 5 - She Will Be Loved"
+“Mena Massoud, Naomi Scott - A Whole New World"
+“Michael Jackson - Smooth Criminal"
+“Michel Teló - Ai Se Eu Te Pego"
+“Nirvana - Smells Like Teen Spirit"
+“O-Zone - Dragostea din teï"
+“Queen - Bohemian Rhapsody"
+“Queen - Don't Stop Me Now"
+“Queen - I Want to Break Free"
+“Queen - We Are the Champions"
+“Queen - We Will Rock You"
+“Radiohead - Creep"
+“Slipknot - Snuff"
+“Slawomir - Milosc w Zakopanem"
+“The Beatles - Yesterday"
+“The Cranberries - Zombie"
+“Vlad Topalov - Kak zhe tak mozhet byt"
+“Amy Winehouse feat. Mark Ronson - Valerie"
+“Chutci - Samaya"
+“Frank Sinatra - My Way"
+“Gayle - Abcdefu"
+“John Legend - All of Me"
+“Natasha Bedingfield - Unwritten"
+“Rufus Wainwright - Hallelujah (Shrek version)"
 ]
 
 # 5. Header Section
