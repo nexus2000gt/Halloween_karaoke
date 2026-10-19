@@ -142,7 +142,7 @@ SONGS = [
     "Queen - We Are the Champions",
     "Queen - We Will Rock You",
     "Radiohead - Creep",
-    "Rufus Wainwright - Hallelujah (Shrek version)"
+    "Rufus Wainwright - Hallelujah (Shrek version)",
     "Slipknot - Snuff",
     "Slawomir - Milosc w Zakopanem",
     "The Beatles - Yesterday",
