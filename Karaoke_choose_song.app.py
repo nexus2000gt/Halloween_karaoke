@@ -149,6 +149,7 @@ SONGS = [
 "The Little Mermaid - Part Of Your World",
 "Tommy Cash - Espresso Macchiato",
 "Vlad Topalov - Kak zhe tak mozhet byt",
+"Snuff - Slipknot",    
     
 ]
 
